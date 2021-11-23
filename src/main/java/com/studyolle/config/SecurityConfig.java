@@ -16,14 +16,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers("/","/login","sign-up","/check-email","/check-email-token",
-                        "/email-login","/chek-email-login","/login-link").permitAll()
+                        "/email-login","/chek-email-login","/login-link","/node_modules/**").permitAll()
                 .mvcMatchers(HttpMethod.GET,"/profile/*").permitAll()
+                .mvcMatchers(HttpMethod.GET,"/node_modules/**").permitAll()
                 .anyRequest().authenticated();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
+                .mvcMatchers("/nodes_modules/**")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 }
