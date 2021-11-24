@@ -55,9 +55,19 @@ public class AccountService {
 
     public void login(Account account) {
         UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(
-                account.getNickname(),account.getPassword(),List.of(new SimpleGrantedAuthority("ROLE_USER")));
+                new UserAccount(account),
+                account.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_USER")));
 
-        SecurityContext context=SecurityContextHolder.getContext();
-        context.setAuthentication(token);
+        SecurityContextHolder.getContext().setAuthentication(token);
+    }
+
+    public void sendSignUpConfirmEamil(Account newAccount) {
+        SimpleMailMessage mailMessage=new SimpleMailMessage();
+        mailMessage.setTo(newAccount.getEmail());
+        mailMessage.setSubject("스터디올래, 회원 가입 인증");
+        mailMessage.setText("/check-email-token?token="+newAccount.getEmailCheckToken()+
+                "&email="+newAccount.getEmail());
+        javaMailSender.send(mailMessage);
     }
 }
