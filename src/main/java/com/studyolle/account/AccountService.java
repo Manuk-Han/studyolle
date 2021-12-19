@@ -1,15 +1,14 @@
 package com.studyolle.account;
 
 import com.studyolle.domain.Account;
-import com.studyolle.settings.Notifications;
-import com.studyolle.settings.Profile;
+import com.studyolle.settings.form.Notifications;
+import com.studyolle.settings.form.Profile;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.script.ScriptContext;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -110,5 +108,11 @@ public class AccountService implements UserDetailsService {
     public void updateNotifications(Account account, Notifications notifications) {
         modelMapper.map(notifications, account);
         accountRepository.save(account);
+    }
+
+    public void updateNickname(Account account, String nickname) {
+        account.setNickname(nickname);
+        accountRepository.save(account);
+        login(account);
     }
 }
