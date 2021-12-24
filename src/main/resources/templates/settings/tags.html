@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <script src="node_modules/@yaireo/tagify/dist/tagify.min.js"></script>
+    <script src="/node_modules/@yaireo/tagify/dist/tagify.min.js"></script>
     <script type="application/javascript">
         $(function () {
             function tagRequest(url, tagTitle) {
@@ -53,7 +53,7 @@
 
             var tagInput = document.querySelector("#tags");
 
-            var tagify=new Tagifry(tagInput,{
+            var tagify=new Tagify(tagInput,{
                 pattern: /^.{0,20}$/,
                 dropdown :{
                     enabled:1,
