@@ -122,10 +122,10 @@
 </script>
 
 <script type="application/javascript" th:inline="javascript" th:fragment="ajax-csrf-header">
-    $(function(){
+    $(function() {
         var csrfToken = /*[[${_csrf.token}]]*/ null;
         var csrfHeader = /*[[${_csrf.headerName}]]*/ null;
-        $(documnet).ajaxSend(function (e, xhr, options) {
+        $(document).ajaxSend(function (e, xhr, options) {
             xhr.setRequestHeader(csrfHeader, csrfToken);
         });
     });

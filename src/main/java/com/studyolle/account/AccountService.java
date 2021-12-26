@@ -148,11 +148,13 @@ public class AccountService implements UserDetailsService {
         return byId.orElseThrow().getZones();
     }
 
+    @Transactional
     public void addZone(Account account, Zone zone) {
         Optional<Account> byId = accountRepository.findById(account.getId());
         byId.ifPresent(a -> a.getZones().add(zone));
     }
 
+    @Transactional
     public void removeZone(Account account, Zone zone) {
         Optional<Account> byId = accountRepository.findById(account.getId());
         byId.ifPresent(a -> a.getZones().remove(zone));
